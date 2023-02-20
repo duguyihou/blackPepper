@@ -1,3 +1,6 @@
 {
-  "deno.enable": true
+  "deno.enable": true,
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///Users/kong.hou/Github/blackPepper/.github/workflows/deploy.yml"
+  }
 }
