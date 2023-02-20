@@ -1,5 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import Layout from "../components/layout/Layout.tsx";
+import Layout from "../components/Layout.tsx";
 import Counter from "../islands/Counter.tsx";
 
 export default function Home() {
