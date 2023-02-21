@@ -1,6 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import Layout from "../components/Layout.tsx";
-import Counter from "../islands/Counter.tsx";
+import Terminal from "../features/Terminal.tsx";
 
 export default function Home() {
   return (
@@ -8,9 +7,7 @@ export default function Home() {
       <Head>
         <title>Kong | Home</title>
       </Head>
-      <Layout>
-        <Counter start={3} />
-      </Layout>
+      <Terminal />
     </>
   );
 }
