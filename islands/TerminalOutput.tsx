@@ -1,7 +1,9 @@
 import About from "../components/About.tsx";
+import Welcome from "../components/Welcome.tsx";
 
 const Outputs = {
   about: <About />,
+  welcome: <Welcome />
 };
 
 type Props = {

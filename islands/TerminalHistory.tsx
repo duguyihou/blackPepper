@@ -3,7 +3,7 @@ import TerminalOutput from "./TerminalOutput.tsx";
 const TerminalHistory = () => {
   return (
     <div>
-      <TerminalOutput cmd="about" />
+      <TerminalOutput cmd="welcome" />
     </div>
   );
 };
