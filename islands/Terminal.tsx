@@ -7,7 +7,7 @@ const Terminal = () => {
   return (
     <div>
       <TerminalHistory cmds={cmds} />
-      <TerminalInput />
+      <TerminalInput setCmds={setCmds} />
     </div>
   );
 };
