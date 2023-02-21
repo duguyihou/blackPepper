@@ -6,6 +6,7 @@ const TerminalInput = () => {
   const handleOnInput = (
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => {
+    console.log('🐵  ------ ', currentTarget.value)
     setInputVal(currentTarget.value);
   };
   return (
