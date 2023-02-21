@@ -5,7 +5,7 @@ import { CMD } from "../utils/constants.ts";
 const Terminal = () => {
   const [cmds, setCmds] = useState([CMD.Welcome]);
   return (
-    <div>
+    <div class="h-fit">
       <TerminalHistory cmds={cmds} />
       <TerminalInput setCmds={setCmds} />
     </div>
