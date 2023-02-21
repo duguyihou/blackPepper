@@ -1,9 +1,13 @@
+import { CMD } from "../utils/constants.ts";
 import TerminalOutput from "./TerminalOutput.tsx";
 
-const TerminalHistory = () => {
+type Props = {
+  cmds: CMD[];
+};
+const TerminalHistory = ({ cmds }: Props) => {
   return (
     <div>
-      <TerminalOutput cmd="welcome" />
+      {cmds.map((cmd) => <TerminalOutput cmd={cmd} />)}
     </div>
   );
 };

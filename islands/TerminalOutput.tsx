@@ -1,16 +1,17 @@
 import About from "../components/About.tsx";
 import Welcome from "../components/Welcome.tsx";
-
-const Outputs = {
-  about: <About />,
-  welcome: <Welcome />
-};
+import { CMD } from "../utils/constants.ts";
 
 type Props = {
-  cmd: string;
+  cmd: CMD;
 };
 const TerminalOutput = ({ cmd }: Props) => {
-  return <div>{Outputs[cmd]}</div>;
+  const Output = { About, Welcome }[cmd];
+  return (
+    <div>
+      <Output />
+    </div>
+  );
 };
 
 export default TerminalOutput;
