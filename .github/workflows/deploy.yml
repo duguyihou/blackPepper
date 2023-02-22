@@ -1,6 +1,7 @@
 name: Deploy
-on: [push]
-
+on:
+  pull_request:
+    branches: [main]
 jobs:
   deploy:
     name: Deploy
@@ -18,5 +19,5 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "black-pepper"
+          project: "kong"
           entrypoint: "./main.ts" # TODO: update entrypoint
