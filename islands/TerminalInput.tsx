@@ -1,13 +1,14 @@
 import { StateUpdater, useCallback, useState } from "preact/hooks";
 import { JSX } from "preact";
-import { CMD } from "../utils/constants.ts";
+import { Input } from "../utils/constants.ts";
 import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
 import { tw } from "twind";
 import TerminalInfo from "../components/TerminalInfo.tsx";
+
 type Props = {
-  setCmds: StateUpdater<CMD[]>;
+  setInputs: StateUpdater<Input[]>;
 };
-const TerminalInput = ({ setCmds }: Props) => {
+const TerminalInput = ({ setInputs }: Props) => {
   const initialInputVal = "";
   const [inputVal, setInputVal] = useState(initialInputVal);
 
@@ -19,13 +20,13 @@ const TerminalInput = ({ setCmds }: Props) => {
 
   const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
-    const cmd = `${inputVal.trim().charAt(0).toUpperCase()}${
+    const input = `${inputVal.trim().charAt(0).toUpperCase()}${
       inputVal.slice(1)
-    }` as CMD;
-    if (!isValueInCMD(cmd)) {
-      console.error("invalid cmd");
+    }`;
+    if (isValueInCMD(input) || input === "") {
+      setInputs((state) => [...state, input]);
     } else {
-      setCmds((state) => [...state, cmd]);
+      console.error("invalid cmd");
     }
 
     setInputVal(initialInputVal);

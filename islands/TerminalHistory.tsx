@@ -1,13 +1,13 @@
-import { CMD } from "../utils/constants.ts";
+import { Input } from "../utils/constants.ts";
 import TerminalOutput from "./TerminalOutput.tsx";
 
 type Props = {
-  cmds: CMD[];
+  inputs: Input[];
 };
-const TerminalHistory = ({ cmds }: Props) => {
+const TerminalHistory = ({ inputs }: Props) => {
   return (
     <div class="max-h-full overflow-scroll">
-      {cmds.map((cmd) => <TerminalOutput cmd={cmd} />)}
+      {inputs.map((input) => <TerminalOutput input={input} />)}
     </div>
   );
 };

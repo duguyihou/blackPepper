@@ -2,16 +2,16 @@ import { tw } from "twind";
 import About from "../components/About.tsx";
 import Empty from "../components/Empty.tsx";
 import Welcome from "../components/Welcome.tsx";
-import { CMD } from "../utils/constants.ts";
+import { Input } from "../utils/constants.ts";
 
 type Props = {
-  cmd: CMD;
+  input: Input;
 };
-const TerminalOutput = ({ cmd }: Props) => {
-  if (cmd === "") {
+const TerminalOutput = ({ input }: Props) => {
+  if (input === "") {
     return <Empty />;
   }
-  const Output = { About, Welcome }[cmd];
+  const Output = { About, Welcome }[input];
   return (
     <div class={tw`py-1`}>
       <Output />
