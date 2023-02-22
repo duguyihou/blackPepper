@@ -6,7 +6,7 @@ type Props = {
 };
 const TerminalHistory = ({ cmds }: Props) => {
   return (
-    <div class="max-h-96 overflow-scroll">
+    <div class="max-h-full overflow-scroll">
       {cmds.map((cmd) => <TerminalOutput cmd={cmd} />)}
     </div>
   );

@@ -1,11 +1,13 @@
+import { tw } from "twind";
+
 const About = () => {
   return (
-    <div>
+    <div class={tw`text-white`}>
       <p>
         Hi, my name is Kong!
       </p>
       <p>
-        I'm a full-stack developer based in Sydney
+        Full-stack developer based in Sydney
       </p>
       <p>
         I am passionate about writing codes and <br />

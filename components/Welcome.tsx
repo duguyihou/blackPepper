@@ -1,6 +1,6 @@
 const Welcome = () => {
   return (
-    <div class="w-fit h-fit">
+    <div class="w-auto h-auto text-white">
       <pre style={{ fontSize: 4 }}>
         {`
                                         .  ..
@@ -52,6 +52,9 @@ const Welcome = () => {
                               =++*%%%%%%%%%%%%%%%%%%%@@@@@@@@@@@@@@%%%%%%%**#=
         `}
       </pre>
+      <div>
+        For a list of available commands, type <b>help</b>.
+      </div>
     </div>
   );
 };
