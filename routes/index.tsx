@@ -1,6 +1,6 @@
 import { Head } from "$fresh/runtime.ts";
-import Layout from "../components/Layout.tsx";
-import Counter from "../islands/Counter.tsx";
+import { tw } from "twind";
+import Terminal from "../islands/Terminal.tsx";
 
 export default function Home() {
   return (
@@ -8,9 +8,11 @@ export default function Home() {
       <Head>
         <title>Kong | Home</title>
       </Head>
-      <Layout>
-        <Counter start={3} />
-      </Layout>
+      <div
+        class={tw`h-screen bg-gray-900 w-screen flex justify-center items-center`}
+      >
+        <Terminal />
+      </div>
     </>
   );
 }
