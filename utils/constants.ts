@@ -3,5 +3,5 @@ export enum CMD {
   Welcome = "Welcome",
 }
 
-export type Empty = "";
-export type Input = CMD | Empty;
+export type EmptyInput = "";
+export type Input = CMD | EmptyInput | string;

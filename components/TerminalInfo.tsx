@@ -5,7 +5,7 @@ const TerminalInfo = () => {
     <div>
       <span class={tw`text-blue-700`}>visitor</span>
       @
-      <span class={tw`text-green-500`}>initial</span>
+      <span class={tw`text-green-500`}>kong.deno.dev</span>
     </div>
   );
 };

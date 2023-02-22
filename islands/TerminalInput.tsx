@@ -1,9 +1,9 @@
 import { StateUpdater, useCallback, useState } from "preact/hooks";
 import { JSX } from "preact";
 import { Input } from "../utils/constants.ts";
-import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
 import { tw } from "twind";
 import TerminalInfo from "../components/TerminalInfo.tsx";
+import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
 
 type Props = {
   setInputs: StateUpdater<Input[]>;
@@ -11,7 +11,7 @@ type Props = {
 const TerminalInput = ({ setInputs }: Props) => {
   const initialInputVal = "";
   const [inputVal, setInputVal] = useState(initialInputVal);
-
+  const focusedInputRef = useFocusedInputRef();
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => {
@@ -20,15 +20,7 @@ const TerminalInput = ({ setInputs }: Props) => {
 
   const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
-    const input = `${inputVal.trim().charAt(0).toUpperCase()}${
-      inputVal.slice(1)
-    }`;
-    if (isValueInCMD(input) || input === "") {
-      setInputs((state) => [...state, input]);
-    } else {
-      console.error("invalid cmd");
-    }
-
+    setInputs((state) => [...state, inputVal.trim()]);
     setInputVal(initialInputVal);
   };
 
@@ -42,6 +34,7 @@ const TerminalInput = ({ setInputs }: Props) => {
           &#62;
         </span>
         <input
+          ref={focusedInputRef}
           class={tw`flex-1 bg-gray-900 text-white focus:outline-none`}
           style={{ caretColor: "#a277ff" }}
           type="text"
