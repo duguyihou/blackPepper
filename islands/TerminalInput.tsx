@@ -26,7 +26,7 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
   useEffect(() => {
     containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
   }, [infoArray]);
-  
+
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => {
