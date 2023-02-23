@@ -16,7 +16,7 @@ const OperationOutput = ({ input }: Props) => {
     <div class={tw`text-white`}>
       {infoArray.map((info, idx) => (
         <div class={tw`flex flex-row`}>
-          <div class={tw`w-12`}>{idx+1}</div>
+          <div class={tw`w-12`}>{idx + 1}</div>
           <div>{info.input}</div>
         </div>
       ))}
