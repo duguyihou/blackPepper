@@ -13,7 +13,7 @@ type Props = {
 const TerminalInput = ({ setInputs }: Props) => {
   const initialInputVal = "";
   const [inputVal, setInputVal] = useState(initialInputVal);
-  const [hasError, setHasError] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const focusedInputRef = useFocusedInputRef();
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
@@ -26,7 +26,7 @@ const TerminalInput = ({ setInputs }: Props) => {
     const input = inputVal.trim();
     setInputs((state) => [...state, input]);
     setInputVal(initialInputVal);
-    if (!isValueInCMD(input) || input !== "") setHasError(false);
+    if (!isValueInCMD(input) && input !== "") setHasError(true);
   };
 
   return (
