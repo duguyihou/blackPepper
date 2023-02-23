@@ -1,20 +1,32 @@
-import { StateUpdater, useCallback, useState } from "preact/hooks";
+import {
+  Ref,
+  StateUpdater,
+  useCallback,
+  useEffect,
+  useState,
+} from "preact/hooks";
+import { tw } from "twind";
 import { JSX } from "preact";
 import { Info } from "../utils/constants.ts";
-import { tw } from "twind";
 import TerminalInfo from "../components/TerminalInfo.tsx";
 import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
 import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
 import TermLayout from "../components/TermLayout.tsx";
 
 type Props = {
+  containerRef: Ref<HTMLDivElement>;
+  infoArray: Info[];
   setInfoArray: StateUpdater<Info[]>;
 };
-const TerminalInput = ({ setInfoArray }: Props) => {
-  const initialInputVal = "";
-  const [inputVal, setInputVal] = useState(initialInputVal);
+const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
+  const [inputVal, setInputVal] = useState("");
   const [isError, setIsError] = useState(false);
   const focusedInputRef = useFocusedInputRef();
+
+  useEffect(() => {
+    containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
+  }, [infoArray]);
+  
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => {
@@ -26,7 +38,7 @@ const TerminalInput = ({ setInfoArray }: Props) => {
     const input = inputVal.trim();
     const info = { input, isError };
     setInfoArray((state) => [...state, info]);
-    setInputVal(initialInputVal);
+    setInputVal("");
     if ((input !== "" && !isValueInCMD(input)) || (input === "" && isError)) {
       setIsError(true);
     } else {

@@ -6,7 +6,7 @@ type Props = {
 };
 const TerminalHistory = ({ infoArray }: Props) => {
   return (
-    <div class="max-h-full overflow-scroll">
+    <div>
       {infoArray.map((info) => <TerminalOutput info={info} />)}
     </div>
   );
