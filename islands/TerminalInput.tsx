@@ -6,7 +6,6 @@ import TerminalInfo from "../components/TerminalInfo.tsx";
 import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
 import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
 import TermLayout from "../components/TermLayout.tsx";
-import captialiseString from "../utils/captialiseString.ts";
 
 type Props = {
   setInfoArray: StateUpdater<Info[]>;
@@ -20,7 +19,7 @@ const TerminalInput = ({ setInfoArray }: Props) => {
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
   ) => {
     setInputVal(currentTarget.value);
-  },[inputVal]);
+  }, [inputVal]);
 
   const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
@@ -28,8 +27,7 @@ const TerminalInput = ({ setInfoArray }: Props) => {
     const info = { input, isError };
     setInfoArray((state) => [...state, info]);
     setInputVal(initialInputVal);
-
-    if (!isValueInCMD(captialiseString(input)) && input !== "") {
+    if (!isValueInCMD(input) && input !== "") {
       setIsError(true);
     } else if (input === "" && isError) {
       setIsError(true);

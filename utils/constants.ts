@@ -1,6 +1,6 @@
 export enum CMD {
-  About = "About",
-  Welcome = "Welcome",
+  About = "about",
+  Welcome = "welcome",
 }
 
 export type EmptyInput = "";

@@ -1,15 +1,15 @@
 import { tw } from "twind";
-import { CMD } from "../utils/constants.ts";
 import TermLayout from "./TermLayout.tsx";
 import About from "./About.tsx";
 import Welcome from "./Welcome.tsx";
 
+const outputs = { about: About, welcome: Welcome };
 type Props = {
-  input: string;
+  input: keyof typeof outputs;
 };
+
 const NormalOutput = ({ input }: Props) => {
-  const cmd = `${input.charAt(0).toUpperCase()}${input.slice(1)}` as CMD;
-  const Output = { About, Welcome }[cmd];
+  const Output = outputs[input];
   return (
     <TermLayout>
       <div class={tw`flex flex-col`}>

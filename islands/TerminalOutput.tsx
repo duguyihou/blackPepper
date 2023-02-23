@@ -3,7 +3,7 @@ import BlankOutput from "../components/BlankOutput.tsx";
 import NormalOutput from "../components/NormalOutput.tsx";
 import TerminalError from "../components/TerminalError.tsx";
 import TermLayout from "../components/TermLayout.tsx";
-import { CMD, Info } from "../utils/constants.ts";
+import { Info } from "../utils/constants.ts";
 import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
 
 type Props = {
@@ -18,8 +18,7 @@ const TerminalOutput = ({ info }: Props) => {
       </TermLayout>
     );
   }
-  const cmd = `${input.charAt(0).toUpperCase()}${input.slice(1)}` as CMD;
-  if (!isValueInCMD(cmd)) {
+  if (!isValueInCMD(input)) {
     return <TerminalError error={input} />;
   }
   return <NormalOutput input={input} />;
