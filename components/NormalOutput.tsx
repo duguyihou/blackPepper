@@ -2,8 +2,9 @@ import { tw } from "twind";
 import TermLayout from "./TermLayout.tsx";
 import About from "./About.tsx";
 import Welcome from "./Welcome.tsx";
+import Help from "./Help.tsx";
 
-const outputs = { about: About, welcome: Welcome };
+const outputs = { about: About, welcome: Welcome, help: Help };
 type Props = {
   input: keyof typeof outputs;
 };
