@@ -1,16 +1,31 @@
-import { StateUpdater, useCallback, useState } from "preact/hooks";
-import { JSX } from "preact";
-import { Input } from "../utils/constants.ts";
-import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
+import {
+  Ref,
+  StateUpdater,
+  useCallback,
+  useEffect,
+  useState,
+} from "preact/hooks";
 import { tw } from "twind";
+import { JSX } from "preact";
+import { Info } from "../utils/constants.ts";
 import TerminalInfo from "../components/TerminalInfo.tsx";
+import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
+import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
+import TermLayout from "../components/TermLayout.tsx";
 
 type Props = {
-  setInputs: StateUpdater<Input[]>;
+  containerRef: Ref<HTMLDivElement>;
+  infoArray: Info[];
+  setInfoArray: StateUpdater<Info[]>;
 };
-const TerminalInput = ({ setInputs }: Props) => {
-  const initialInputVal = "";
-  const [inputVal, setInputVal] = useState(initialInputVal);
+const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
+  const [inputVal, setInputVal] = useState("");
+  const [isError, setIsError] = useState(false);
+  const focusedInputRef = useFocusedInputRef();
+
+  useEffect(() => {
+    containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
+  }, [infoArray]);
 
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
@@ -20,16 +35,15 @@ const TerminalInput = ({ setInputs }: Props) => {
 
   const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
-    const input = `${inputVal.trim().charAt(0).toUpperCase()}${
-      inputVal.slice(1)
-    }`;
-    if (isValueInCMD(input) || input === "") {
-      setInputs((state) => [...state, input]);
+    const input = inputVal.trim();
+    const info = { input, isError };
+    setInfoArray((state) => [...state, info]);
+    setInputVal("");
+    if ((input !== "" && !isValueInCMD(input)) || (input === "" && isError)) {
+      setIsError(true);
     } else {
-      console.error("invalid cmd");
+      setIsError(false);
     }
-
-    setInputVal(initialInputVal);
   };
 
   return (
@@ -37,11 +51,9 @@ const TerminalInput = ({ setInputs }: Props) => {
       <label class={tw`text-green-500 font-extrabold`}>
         <TerminalInfo />
       </label>
-      <div class={tw`flex`}>
-        <span class={tw`text-green-500 font-extrabold`}>
-          &#62;
-        </span>
+      <TermLayout isError={isError}>
         <input
+          ref={focusedInputRef}
           class={tw`flex-1 bg-gray-900 text-white focus:outline-none`}
           style={{ caretColor: "#a277ff" }}
           type="text"
@@ -49,7 +61,7 @@ const TerminalInput = ({ setInputs }: Props) => {
           onInput={handleOnInput}
           autoFocus
         />
-      </div>
+      </TermLayout>
     </form>
   );
 };

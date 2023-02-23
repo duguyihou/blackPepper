@@ -1,22 +1,26 @@
 import { tw } from "twind";
-import About from "../components/About.tsx";
-import Empty from "../components/Empty.tsx";
-import Welcome from "../components/Welcome.tsx";
-import { Input } from "../utils/constants.ts";
+import NormalOutput from "../components/NormalOutput.tsx";
+import TerminalError from "../components/TerminalError.tsx";
+import TermLayout from "../components/TermLayout.tsx";
+import { Info } from "../utils/constants.ts";
+import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
 
 type Props = {
-  input: Input;
+  info: Info;
 };
-const TerminalOutput = ({ input }: Props) => {
+const TerminalOutput = ({ info }: Props) => {
+  const { input, isError } = info;
   if (input === "") {
-    return <Empty />;
+    return (
+      <TermLayout isError={isError}>
+        <div class={tw`flex-1`} />
+      </TermLayout>
+    );
   }
-  const Output = { About, Welcome }[input];
-  return (
-    <div class={tw`py-1`}>
-      <Output />
-    </div>
-  );
+  if (!isValueInCMD(input)) {
+    return <TerminalError error={input} />;
+  }
+  return <NormalOutput input={input} />;
 };
 
 export default TerminalOutput;

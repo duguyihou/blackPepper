@@ -1,13 +1,13 @@
-import { Input } from "../utils/constants.ts";
+import { Info } from "../utils/constants.ts";
 import TerminalOutput from "./TerminalOutput.tsx";
 
 type Props = {
-  inputs: Input[];
+  infoArray: Info[];
 };
-const TerminalHistory = ({ inputs }: Props) => {
+const TerminalHistory = ({ infoArray }: Props) => {
   return (
-    <div class="max-h-full overflow-scroll">
-      {inputs.map((input) => <TerminalOutput input={input} />)}
+    <div>
+      {infoArray.map((info) => <TerminalOutput info={info} />)}
     </div>
   );
 };
