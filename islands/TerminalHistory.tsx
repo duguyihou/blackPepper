@@ -1,4 +1,4 @@
-import { Info, Input } from "../utils/constants.ts";
+import { Info } from "../utils/constants.ts";
 import TerminalOutput from "./TerminalOutput.tsx";
 
 type Props = {

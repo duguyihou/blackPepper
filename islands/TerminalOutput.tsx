@@ -1,5 +1,4 @@
 import { tw } from "twind";
-import BlankOutput from "../components/BlankOutput.tsx";
 import NormalOutput from "../components/NormalOutput.tsx";
 import TerminalError from "../components/TerminalError.tsx";
 import TermLayout from "../components/TermLayout.tsx";

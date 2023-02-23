@@ -27,9 +27,7 @@ const TerminalInput = ({ setInfoArray }: Props) => {
     const info = { input, isError };
     setInfoArray((state) => [...state, info]);
     setInputVal(initialInputVal);
-    if (!isValueInCMD(input) && input !== "") {
-      setIsError(true);
-    } else if (input === "" && isError) {
+    if ((input !== "" && !isValueInCMD(input)) || (input === "" && isError)) {
       setIsError(true);
     } else {
       setIsError(false);
