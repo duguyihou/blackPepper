@@ -4,6 +4,8 @@ import { Input } from "../utils/constants.ts";
 import { tw } from "twind";
 import TerminalInfo from "../components/TerminalInfo.tsx";
 import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
+import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
+import TermLayout from "../components/TermLayout.tsx";
 
 type Props = {
   setInputs: StateUpdater<Input[]>;
@@ -11,6 +13,7 @@ type Props = {
 const TerminalInput = ({ setInputs }: Props) => {
   const initialInputVal = "";
   const [inputVal, setInputVal] = useState(initialInputVal);
+  const [hasError, setHasError] = useState(true);
   const focusedInputRef = useFocusedInputRef();
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
@@ -20,8 +23,10 @@ const TerminalInput = ({ setInputs }: Props) => {
 
   const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
-    setInputs((state) => [...state, inputVal.trim()]);
+    const input = inputVal.trim();
+    setInputs((state) => [...state, input]);
     setInputVal(initialInputVal);
+    if (!isValueInCMD(input) || input !== "") setHasError(false);
   };
 
   return (
@@ -29,10 +34,7 @@ const TerminalInput = ({ setInputs }: Props) => {
       <label class={tw`text-green-500 font-extrabold`}>
         <TerminalInfo />
       </label>
-      <div class={tw`flex`}>
-        <span class={tw`text-green-500 font-extrabold`}>
-          &#62;
-        </span>
+      <TermLayout hasError={hasError}>
         <input
           ref={focusedInputRef}
           class={tw`flex-1 bg-gray-900 text-white focus:outline-none`}
@@ -42,7 +44,7 @@ const TerminalInput = ({ setInputs }: Props) => {
           onInput={handleOnInput}
           autoFocus
         />
-      </div>
+      </TermLayout>
     </form>
   );
 };

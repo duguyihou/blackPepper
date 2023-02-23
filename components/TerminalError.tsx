@@ -1,18 +1,16 @@
 import { tw } from "twind";
+import TermLayout from "./TermLayout.tsx";
 
 type Props = {
   error: string;
 };
 const TerminalError = ({ error }: Props) => {
   return (
-    <div class={tw`flex flex-row`}>
-      <span class={tw`text-pink-600 font-extrabold`}>
-        &#62;
-      </span>
+    <TermLayout>
       <p class={tw`text-white`}>
         {`command not found: ${error}`}
       </p>
-    </div>
+    </TermLayout>
   );
 };
 
