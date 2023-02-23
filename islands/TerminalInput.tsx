@@ -10,7 +10,10 @@ import { JSX } from "preact";
 import { Info } from "../utils/constants.ts";
 import TerminalInfo from "../components/TerminalInfo.tsx";
 import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
-import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
+import {
+  isValueInCMD,
+  isValueInOperation,
+} from "../utils/isValueInStringEnum.ts";
 import TermLayout from "../components/TermLayout.tsx";
 
 type Props = {
@@ -39,7 +42,10 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
     const info = { input, isError };
     setInfoArray((state) => [...state, info]);
     setInputVal("");
-    if ((input !== "" && !isValueInCMD(input)) || (input === "" && isError)) {
+    if (
+      (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
+      (input === "" && isError)
+    ) {
       setIsError(true);
     } else {
       setIsError(false);

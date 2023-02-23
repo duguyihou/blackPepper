@@ -4,8 +4,12 @@ export enum CMD {
   Help = "help",
 }
 
+export enum Operation {
+  Clear = "clear",
+  History = "history",
+}
 export type EmptyInput = "";
-export type Input = CMD | EmptyInput | string;
+export type Input = CMD | Operation | EmptyInput | string;
 export type Info = {
   input: Input;
   isError: boolean;

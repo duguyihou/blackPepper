@@ -1,4 +1,4 @@
-import { CMD } from "./constants.ts";
+import { CMD, Operation } from "./constants.ts";
 
 export const isValueInStringEnum = <E extends string>(
   strEnum: Record<string, E>,
@@ -9,3 +9,4 @@ export const isValueInStringEnum = <E extends string>(
 };
 
 export const isValueInCMD = isValueInStringEnum(CMD);
+export const isValueInOperation = isValueInStringEnum(Operation);

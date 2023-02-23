@@ -1,9 +1,13 @@
 import { tw } from "twind";
 import NormalOutput from "../components/NormalOutput.tsx";
+import OperationOutput from "../components/OperationOutput.tsx";
 import TerminalError from "../components/TerminalError.tsx";
 import TermLayout from "../components/TermLayout.tsx";
 import { Info } from "../utils/constants.ts";
-import { isValueInCMD } from "../utils/isValueInStringEnum.ts";
+import {
+  isValueInCMD,
+  isValueInOperation,
+} from "../utils/isValueInStringEnum.ts";
 
 type Props = {
   info: Info;
@@ -17,8 +21,12 @@ const TerminalOutput = ({ info }: Props) => {
       </TermLayout>
     );
   }
-  if (!isValueInCMD(input)) {
+  if (!isValueInCMD(input) && !isValueInOperation(input)) {
     return <TerminalError error={input} />;
+  }
+
+  if (isValueInOperation(input)) {
+    return <OperationOutput input={input} />;
   }
   return <NormalOutput input={input} />;
 };

@@ -14,12 +14,12 @@ const cmds = [
 const Help = () => {
   return (
     <div>
-      {cmds.map(({cmd, desc}) => (
-        <div key={cmd} class={tw`flex flex-row justify-between`} >
+      {cmds.map(({ cmd, desc }) => (
+        <div key={cmd} class={tw`flex flex-row justify-between`}>
           <div class={tw`text-green-500 w-20`}>
             {cmd}
           </div>
-          <div class={tw`text-white text-left flex-1`}> - {desc}</div>
+          <div class={tw`text-white text-left flex-1`}>- {desc}</div>
         </div>
       ))}
     </div>
