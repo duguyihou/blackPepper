@@ -13,7 +13,7 @@ const Terminal = () => {
   return (
     <div
       ref={containerRef}
-      class={tw`w-3/5 h-2/3 shadow-2xl border-purple-900 p-4 flex flex-col justify-start overflow-scroll`}
+      class={tw`w-3/5 h-2/3 p-4 flex flex-col justify-start overflow-scroll`}
     >
       <TerminalHistory infoArray={infoArray} />
       <TerminalInput

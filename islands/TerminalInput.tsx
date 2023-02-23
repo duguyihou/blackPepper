@@ -48,11 +48,12 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
 
   return (
     <form class={tw`flex flex-col`} onSubmit={handleOnSubmit}>
-      <label class={tw`text-green-500 font-extrabold`}>
+      <label htmlFor="terminal-input" class={tw`text-green-500 font-extrabold`}>
         <TerminalInfo />
       </label>
       <TermLayout isError={isError}>
         <input
+          id="terminal-input"
           ref={focusedInputRef}
           class={tw`flex-1 bg-gray-900 text-white focus:outline-none`}
           style={{ caretColor: "#a277ff" }}
