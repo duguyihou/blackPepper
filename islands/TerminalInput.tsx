@@ -80,7 +80,7 @@ const TerminalInput = ({ containerRef }: Props) => {
         <input
           id="terminal-input"
           ref={focusedInputRef}
-          class={tw`flex-1 bg-gray-900 text-white focus:outline-none`}
+          class={tw`flex-1 bg-gray-900 text-white text-xs sm:text-sm md:text-base lg:text-lg focus:outline-none`}
           style={{ caretColor: "#a277ff" }}
           type="text"
           value={inputVal}
