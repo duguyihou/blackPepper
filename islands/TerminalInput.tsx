@@ -1,13 +1,12 @@
 import {
   Ref,
-  StateUpdater,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "preact/hooks";
 import { tw } from "twind";
 import { JSX } from "preact";
-import { Info } from "../utils/constants.ts";
 import TerminalInfo from "../components/TerminalInfo.tsx";
 import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
 import {
@@ -15,16 +14,17 @@ import {
   isValueInOperation,
 } from "../utils/isValueInStringEnum.ts";
 import TermLayout from "../components/TermLayout.tsx";
+import { HistoryContext } from "./Terminal.tsx";
 
 type Props = {
   containerRef: Ref<HTMLDivElement>;
-  infoArray: Info[];
-  setInfoArray: StateUpdater<Info[]>;
 };
-const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
+const TerminalInput = ({ containerRef }: Props) => {
+  const { infoArray, setInfoArray } = useContext(HistoryContext);
   const [inputVal, setInputVal] = useState("");
   const [isError, setIsError] = useState(false);
   const focusedInputRef = useFocusedInputRef();
+  const [pointer, setPointer] = useState(infoArray.length + 1);
 
   useEffect(() => {
     containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
@@ -42,6 +42,7 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
     const info = { input, isError };
     setInfoArray((state) => [...state, info]);
     setInputVal("");
+    setPointer(infoArray.length + 1);
     if (
       (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
       (input === "" && isError)
@@ -49,6 +50,24 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
       setIsError(true);
     } else {
       setIsError(false);
+    }
+  };
+
+  const handleOnKeyDown = (
+    event: JSX.TargetedKeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === "ArrowUp") {
+      if (pointer === 0) return;
+      setInputVal(infoArray[pointer - 1].input);
+      setPointer((prevState) => prevState - 1);
+    }
+    if (event.key === "ArrowDown") {
+      if (pointer === infoArray.length - 1) {
+        setInputVal("");
+        return;
+      }
+      setInputVal(infoArray[pointer + 1].input);
+      setPointer((prevState) => prevState + 1);
     }
   };
 
@@ -66,6 +85,7 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
           type="text"
           value={inputVal}
           onInput={handleOnInput}
+          onKeyDown={handleOnKeyDown}
           autoFocus
         />
       </TermLayout>

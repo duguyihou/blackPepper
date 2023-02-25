@@ -29,8 +29,6 @@ const Terminal = () => {
         <TerminalHistory infoArray={infoArray} />
         <TerminalInput
           containerRef={containerRef}
-          setInfoArray={setInfoArray}
-          infoArray={infoArray}
         />
       </div>
     </HistoryContext.Provider>
