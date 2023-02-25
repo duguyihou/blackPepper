@@ -15,7 +15,7 @@ const Help = () => {
     <div>
       {cmds.map(({ cmd, desc }) => (
         <div key={cmd} class={tw`flex flex-row justify-between`}>
-          <div class={tw`text-green-500 w-20`}>
+          <div class={tw`text-green-500 w-16 sm:w-20 md:w-24`}>
             {cmd}
           </div>
           <div class={tw`text-white text-left flex-1`}>- {desc}</div>
