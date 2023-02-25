@@ -7,7 +7,7 @@ type Props = {
 const TerminalError = ({ error }: Props) => {
   return (
     <TermLayout>
-      <p class={tw`text-white`}>
+      <p class={tw`text-xs sm:text-sm md:text-base lg:text-lg text-white`}>
         {`command not found: ${error}`}
       </p>
     </TermLayout>

@@ -1,6 +1,7 @@
+import { tw } from 'twind'
 const Welcome = () => {
   return (
-    <div class="w-auto h-auto text-white">
+    <div class={tw`w-auto h-auto text-white`}>
       <pre style={{ fontSize: 4 }}>
         {`
                                         .  ..
@@ -52,8 +53,8 @@ const Welcome = () => {
                               =++*%%%%%%%%%%%%%%%%%%%@@@@@@@@@@@@@@%%%%%%%**#=
         `}
       </pre>
-      <div>
-        For a list of available commands, type <b>help</b>.
+      <div class={tw`text-xs sm:text-sm md:text-base lg:text-lg`}>
+        For a list of available commands, type help.
       </div>
     </div>
   );

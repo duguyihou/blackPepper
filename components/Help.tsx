@@ -12,7 +12,7 @@ const cmds = [
 ];
 const Help = () => {
   return (
-    <div>
+    <div class={tw`text-xs sm:text-sm md:text-base lg:text-lg`}>
       {cmds.map(({ cmd, desc }) => (
         <div key={cmd} class={tw`flex flex-row justify-between`}>
           <div class={tw`text-green-500 w-20`}>

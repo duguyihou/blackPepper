@@ -13,7 +13,7 @@ const OperationOutput = ({ input }: Props) => {
   }
 
   return (
-    <div class={tw`text-white`}>
+    <div class={tw`text-xs sm:text-sm md:text-base lg:text-lg text-white`}>
       {histories.map((info, idx) => (
         <div class={tw`flex flex-row`}>
           <div class={tw`w-12`}>{idx + 1}</div>
