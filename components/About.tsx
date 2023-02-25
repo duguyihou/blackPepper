@@ -4,10 +4,10 @@ const About = () => {
   return (
     <div class={tw`text-white`}>
       <p>
-        Hi, my name is Kong!
+        Hi, my name is <b>Kong</b>
       </p>
       <p>
-        Full-stack developer based in Sydney
+        A software developer based in Sydney
       </p>
       <p>
         I am passionate about writing codes and <br />
