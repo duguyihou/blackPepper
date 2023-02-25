@@ -61,7 +61,6 @@ const TerminalInput = ({ containerRef }: Props) => {
   ) => {
     if (event.key === "ArrowUp") {
       if (pointer === 0) return;
-      focusedInputRef.current?.focus()
       setInputVal(histories[pointer - 1].input);
       setPointer((prevState) => prevState - 1);
     }
