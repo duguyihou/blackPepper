@@ -4,7 +4,7 @@ import TerminalOutput from "./TerminalOutput.tsx";
 
 const TerminalHistory = () => {
   const { histories } = useContext(HistoryContext);
-  console.log("🐵 history ------ ");
+
   return (
     <div>
       {histories.map((history) => <TerminalOutput history={history} />)}
