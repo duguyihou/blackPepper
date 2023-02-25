@@ -1,4 +1,4 @@
-import TerminalHistory from "../islands/TerminalHistory.tsx";
+import TerminalHistories from "../islands/TerminalHistories.tsx";
 import TerminalInput from "../islands/TerminalInput.tsx";
 import { StateUpdater, useRef, useState } from "preact/hooks";
 import { createContext } from "preact";
@@ -10,7 +10,7 @@ export const HistoryContext = createContext<
 >({
   histories: [],
   setHistories: (
-    value: History[] | ((prevState: History[]) => History[]),
+    _: History[] | ((prevState: History[]) => History[]),
   ): void => {
     throw new Error("Function not implemented.");
   },
@@ -28,7 +28,7 @@ const Terminal = () => {
         ref={containerRef}
         class={tw`w-3/5 h-2/3 p-4 flex flex-col justify-start overflow-scroll`}
       >
-        <TerminalHistory histories={histories} />
+        <TerminalHistories />
         <TerminalInput
           containerRef={containerRef}
         />

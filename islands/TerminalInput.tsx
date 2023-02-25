@@ -36,24 +36,27 @@ const TerminalInput = ({ containerRef }: Props) => {
     setInputVal(currentTarget.value);
   }, [inputVal]);
 
-  const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
-    event.preventDefault();
-    const input = inputVal.trim();
-    const history = { input, isError };
-    setHistories((state) => [...state, history]);
-    setInputVal("");
-    setPointer(histories.length + 1);
-    if (
-      (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
-      (input === "" && isError)
-    ) {
-      setIsError(true);
-    } else {
-      setIsError(false);
-    }
-  };
+  const handleOnSubmit = useCallback(
+    (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
+      event.preventDefault();
+      const input = inputVal.trim();
+      const history = { input, isError };
+      setHistories((state) => [...state, history]);
+      setInputVal("");
+      setPointer(histories.length + 1);
+      if (
+        (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
+        (input === "" && isError)
+      ) {
+        setIsError(true);
+      } else {
+        setIsError(false);
+      }
+    },
+    [inputVal],
+  );
 
-  const handleOnKeyDown = (
+  const handleOnKeyDown = useCallback((
     event: JSX.TargetedKeyboardEvent<HTMLInputElement>,
   ) => {
     if (event.key === "ArrowUp") {
@@ -62,14 +65,11 @@ const TerminalInput = ({ containerRef }: Props) => {
       setPointer((prevState) => prevState - 1);
     }
     if (event.key === "ArrowDown") {
-      if (pointer === histories.length - 1) {
-        setInputVal("");
-        return;
-      }
-      setInputVal(histories[pointer + 1].input);
+      if (pointer === histories.length) return;
+      setInputVal(histories[pointer + 1]?.input ?? "");
       setPointer((prevState) => prevState + 1);
     }
-  };
+  }, [inputVal]);
 
   return (
     <form class={tw`flex flex-col`} onSubmit={handleOnSubmit}>
