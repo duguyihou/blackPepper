@@ -3,17 +3,17 @@ import NormalOutput from "../components/NormalOutput.tsx";
 import OperationOutput from "../components/OperationOutput.tsx";
 import TerminalError from "../components/TerminalError.tsx";
 import TermLayout from "../components/TermLayout.tsx";
-import { Info } from "../utils/constants.ts";
+import { History } from "../utils/constants.ts";
 import {
   isValueInCMD,
   isValueInOperation,
 } from "../utils/isValueInStringEnum.ts";
 
 type Props = {
-  info: Info;
+  history: History;
 };
-const TerminalOutput = ({ info }: Props) => {
-  const { input, isError } = info;
+const TerminalOutput = ({ history }: Props) => {
+  const { input, isError } = history;
   if (input === "") {
     return (
       <TermLayout isError={isError}>

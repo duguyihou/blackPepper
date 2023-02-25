@@ -10,7 +10,7 @@ export enum Operation {
 }
 export type EmptyInput = "";
 export type Input = CMD | Operation | EmptyInput | string;
-export type Info = {
+export type History = {
   input: Input;
   isError: boolean;
 };

@@ -1,5 +1,4 @@
 import { tw } from "twind";
-import { CMD } from "../utils/constants.ts";
 
 const cmds = [
   { cmd: "about", desc: "about Kong" },

@@ -7,7 +7,7 @@ import * as $0 from "./routes/[name].tsx";
 import * as $1 from "./routes/api/joke.ts";
 import * as $2 from "./routes/index.tsx";
 import * as $$0 from "./islands/Terminal.tsx";
-import * as $$1 from "./islands/TerminalHistory.tsx";
+import * as $$1 from "./islands/TerminalHistories.tsx";
 import * as $$2 from "./islands/TerminalInput.tsx";
 import * as $$3 from "./islands/TerminalOutput.tsx";
 
@@ -19,7 +19,7 @@ const manifest = {
   },
   islands: {
     "./islands/Terminal.tsx": $$0,
-    "./islands/TerminalHistory.tsx": $$1,
+    "./islands/TerminalHistories.tsx": $$1,
     "./islands/TerminalInput.tsx": $$2,
     "./islands/TerminalOutput.tsx": $$3,
   },

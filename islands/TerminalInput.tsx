@@ -1,13 +1,12 @@
 import {
   Ref,
-  StateUpdater,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "preact/hooks";
 import { tw } from "twind";
 import { JSX } from "preact";
-import { Info } from "../utils/constants.ts";
 import TerminalInfo from "../components/TerminalInfo.tsx";
 import useFocusedInputRef from "../hooks/useFocusedInputRef.ts";
 import {
@@ -15,20 +14,21 @@ import {
   isValueInOperation,
 } from "../utils/isValueInStringEnum.ts";
 import TermLayout from "../components/TermLayout.tsx";
+import { HistoryContext } from "./Terminal.tsx";
 
 type Props = {
   containerRef: Ref<HTMLDivElement>;
-  infoArray: Info[];
-  setInfoArray: StateUpdater<Info[]>;
 };
-const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
+const TerminalInput = ({ containerRef }: Props) => {
+  const { histories, setHistories } = useContext(HistoryContext);
   const [inputVal, setInputVal] = useState("");
   const [isError, setIsError] = useState(false);
   const focusedInputRef = useFocusedInputRef();
+  const [pointer, setPointer] = useState(histories.length);
 
   useEffect(() => {
     containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
-  }, [infoArray]);
+  }, [histories]);
 
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
@@ -36,21 +36,40 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
     setInputVal(currentTarget.value);
   }, [inputVal]);
 
-  const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
-    event.preventDefault();
-    const input = inputVal.trim();
-    const info = { input, isError };
-    setInfoArray((state) => [...state, info]);
-    setInputVal("");
-    if (
-      (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
-      (input === "" && isError)
-    ) {
-      setIsError(true);
-    } else {
-      setIsError(false);
+  const handleOnSubmit = useCallback(
+    (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
+      event.preventDefault();
+      const input = inputVal.trim();
+      const history = { input, isError };
+      setHistories((state) => [...state, history]);
+      setInputVal("");
+      setPointer(histories.length + 1);
+      if (
+        (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
+        (input === "" && isError)
+      ) {
+        setIsError(true);
+      } else {
+        setIsError(false);
+      }
+    },
+    [inputVal],
+  );
+
+  const handleOnKeyDown = useCallback((
+    event: JSX.TargetedKeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === "ArrowUp") {
+      if (pointer === 0) return;
+      setInputVal(histories[pointer - 1].input);
+      setPointer((prevState) => prevState - 1);
     }
-  };
+    if (event.key === "ArrowDown") {
+      if (pointer === histories.length) return;
+      setInputVal(histories[pointer + 1]?.input ?? "");
+      setPointer((prevState) => prevState + 1);
+    }
+  }, [inputVal]);
 
   return (
     <form class={tw`flex flex-col`} onSubmit={handleOnSubmit}>
@@ -66,6 +85,7 @@ const TerminalInput = ({ setInfoArray, containerRef, infoArray }: Props) => {
           type="text"
           value={inputVal}
           onInput={handleOnInput}
+          onKeyDown={handleOnKeyDown}
           autoFocus
         />
       </TermLayout>
