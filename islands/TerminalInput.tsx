@@ -20,15 +20,15 @@ type Props = {
   containerRef: Ref<HTMLDivElement>;
 };
 const TerminalInput = ({ containerRef }: Props) => {
-  const { infoArray, setInfoArray } = useContext(HistoryContext);
+  const { histories, setHistories } = useContext(HistoryContext);
   const [inputVal, setInputVal] = useState("");
   const [isError, setIsError] = useState(false);
   const focusedInputRef = useFocusedInputRef();
-  const [pointer, setPointer] = useState(infoArray.length + 1);
+  const [pointer, setPointer] = useState(histories.length);
 
   useEffect(() => {
     containerRef.current?.scrollTo(0, containerRef.current?.scrollHeight);
-  }, [infoArray]);
+  }, [histories]);
 
   const handleOnInput = useCallback((
     { currentTarget }: JSX.TargetedEvent<HTMLInputElement, Event>,
@@ -40,9 +40,9 @@ const TerminalInput = ({ containerRef }: Props) => {
     event.preventDefault();
     const input = inputVal.trim();
     const info = { input, isError };
-    setInfoArray((state) => [...state, info]);
+    setHistories((state) => [...state, info]);
     setInputVal("");
-    setPointer(infoArray.length + 1);
+    setPointer(histories.length);
     if (
       (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
       (input === "" && isError)
@@ -58,15 +58,15 @@ const TerminalInput = ({ containerRef }: Props) => {
   ) => {
     if (event.key === "ArrowUp") {
       if (pointer === 0) return;
-      setInputVal(infoArray[pointer - 1].input);
+      setInputVal(histories[pointer - 1].input);
       setPointer((prevState) => prevState - 1);
     }
     if (event.key === "ArrowDown") {
-      if (pointer === infoArray.length - 1) {
+      if (pointer === history.length - 1) {
         setInputVal("");
         return;
       }
-      setInputVal(infoArray[pointer + 1].input);
+      setInputVal(histories[pointer + 1].input);
       setPointer((prevState) => prevState + 1);
     }
   };

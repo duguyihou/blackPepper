@@ -2,31 +2,31 @@ import TerminalHistory from "../islands/TerminalHistory.tsx";
 import TerminalInput from "../islands/TerminalInput.tsx";
 import { StateUpdater, useRef, useState } from "preact/hooks";
 import { createContext } from "preact";
-import { CMD, Info } from "../utils/constants.ts";
+import { CMD, History } from "../utils/constants.ts";
 import { tw } from "twind";
 
 export const HistoryContext = createContext<
-  { infoArray: Info[]; setInfoArray: StateUpdater<Info[]> }
+  { histories: History[]; setHistories: StateUpdater<History[]> }
 >({
-  infoArray: [],
-  setInfoArray: (value: Info[] | ((prevState: Info[]) => Info[])): void => {
+  histories: [],
+  setHistories: (value: History[] | ((prevState: History[]) => History[])): void => {
     throw new Error("Function not implemented.");
   },
 });
 
 const Terminal = () => {
-  const [infoArray, setInfoArray] = useState<Info[]>([{
+  const [histories, setHistories] = useState<History[]>([{
     input: CMD.Welcome,
     isError: false,
   }]);
   const containerRef = useRef<HTMLDivElement>(null);
   return (
-    <HistoryContext.Provider value={{ infoArray, setInfoArray }}>
+    <HistoryContext.Provider value={{ histories, setHistories }}>
       <div
         ref={containerRef}
         class={tw`w-3/5 h-2/3 p-4 flex flex-col justify-start overflow-scroll`}
       >
-        <TerminalHistory infoArray={infoArray} />
+        <TerminalHistory histories={histories} />
         <TerminalInput
           containerRef={containerRef}
         />

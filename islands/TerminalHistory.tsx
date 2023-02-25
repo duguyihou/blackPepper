@@ -1,13 +1,13 @@
-import { Info } from "../utils/constants.ts";
+import { History } from "../utils/constants.ts";
 import TerminalOutput from "./TerminalOutput.tsx";
 
 type Props = {
-  infoArray: Info[];
+  histories: History[];
 };
-const TerminalHistory = ({ infoArray }: Props) => {
+const TerminalHistory = ({ histories }: Props) => {
   return (
     <div>
-      {infoArray.map((info) => <TerminalOutput info={info} />)}
+      {histories.map((history) => <TerminalOutput history={history} />)}
     </div>
   );
 };
