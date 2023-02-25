@@ -39,10 +39,10 @@ const TerminalInput = ({ containerRef }: Props) => {
   const handleOnSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
     const input = inputVal.trim();
-    const info = { input, isError };
-    setHistories((state) => [...state, info]);
+    const history = { input, isError };
+    setHistories((state) => [...state, history]);
     setInputVal("");
-    setPointer(histories.length);
+    setPointer(histories.length + 1);
     if (
       (input !== "" && !isValueInCMD(input)) && !isValueInOperation(input) ||
       (input === "" && isError)
@@ -62,7 +62,7 @@ const TerminalInput = ({ containerRef }: Props) => {
       setPointer((prevState) => prevState - 1);
     }
     if (event.key === "ArrowDown") {
-      if (pointer === history.length - 1) {
+      if (pointer === histories.length - 1) {
         setInputVal("");
         return;
       }

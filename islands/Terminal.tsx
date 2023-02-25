@@ -9,7 +9,9 @@ export const HistoryContext = createContext<
   { histories: History[]; setHistories: StateUpdater<History[]> }
 >({
   histories: [],
-  setHistories: (value: History[] | ((prevState: History[]) => History[])): void => {
+  setHistories: (
+    value: History[] | ((prevState: History[]) => History[]),
+  ): void => {
     throw new Error("Function not implemented.");
   },
 });
