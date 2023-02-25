@@ -26,7 +26,7 @@ const Terminal = () => {
     <HistoryContext.Provider value={{ histories, setHistories }}>
       <div
         ref={containerRef}
-        class={tw`min-w-max w-2/5 h-2/3 p-4 flex flex-col justify-start overflow-scroll`}
+        class={tw`min-w-min w-2/5 h-2/3 p-4 flex flex-col justify-start overflow-scroll`}
       >
         <TerminalHistories />
         <TerminalInput

@@ -1,8 +1,6 @@
-import { tw } from "twind";
-
 const About = () => {
   return (
-    <div class={tw`text-xs sm:text-sm md:text-base lg:text-lg text-white`}>
+    <div>
       <p>
         Hi, my name is <b>Kong</b>
       </p>
